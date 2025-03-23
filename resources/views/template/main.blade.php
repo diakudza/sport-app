@@ -18,13 +18,9 @@
     @endif
 </head>
 <body>
-@auth()
-    <a href="{{route('sportsmen.training.page')}}">Добавить тренеровку</a>
-    <a href="{{route('logout.action')}}">LOGOUT</a>
-@endauth
-@guest()
-    <a href="{{route('login.page')}}">Login</a>
-@endguest   @yield('content')
+@include('template.header')
+
+@yield('content')
 
 </body>
 </html>

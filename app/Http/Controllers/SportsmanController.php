@@ -39,20 +39,22 @@ class SportsmanController extends Controller
             'type' => 'required',
             'training' => 'required|array',
             'user_id' => 'required|exists:users,id',
-            'attachment'=> 'array',
+            'attachment' => 'array',
             'attachment.*' => 'file'
         ]);
 
         $this->trainingService->saveTraining($data);
-//        switch ($trainingTypes->model_class) {
-//            case  TrainingVelo::class:
-//                dd(' velo');
-//                break;
-//            case  TrainingYoga::class:
-//                dd('yoga');
-//                break;
-//        }
 
-        return view('sportsman.add-training');
+        return redirect()->route('home');
+    }
+
+    public function trainings(Request $request)
+    {
+        $trainings = Training::query()
+            ->where('user_id', auth()->user()->id)
+            ->with('trainable')
+            ->get();
+
+        return view('sportsman.your-training', ['trainings' => $trainings]);
     }
 }

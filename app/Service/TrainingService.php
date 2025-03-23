@@ -4,10 +4,13 @@ namespace App\Service;
 
 use App\Models\Training;
 use App\Models\TrainingType;
+use Orchid\Attachment\Models\Attachment;
+
 
 class TrainingService
 {
-    public function saveTraining(array $data){
+    public function saveTraining(array $data)
+    {
 
         $type = TrainingType::find($data['type']);
 
@@ -24,14 +27,19 @@ class TrainingService
         $training->trainable()->associate($model);
         $training->save();
         $training->calculatePoints();
-        if(isset($data['attachment'])){
-//dd($data['attachment']);
 
-                foreach ($data['attachment'] as $file) {
-                    $training->attachments()->attach($file); // Прикрепляем каждый файл
-                }
+        if (isset($data['attachment'])) {
+            foreach ($data['attachment'] as $file) {
 
-//            $training->attachments()->attach($data['attachment']);
+                $path = $file->store('training_attachments', 'public');
+                $attachment = Attachment::create([
+                    'name' => $file->hashName(), 'original_name' => $file->getClientOriginalName(),
+                    'file_path' => $path, 'size' => $file->getSize(), 'mime' => $file->getClientMimeType(),
+                    'path' => $path, 'extension' => $file->getClientMimeType()
+                ]);
+
+                $training->attachments()->attach($attachment->id);
+            }
         }
     }
 }
