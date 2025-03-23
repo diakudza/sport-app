@@ -13,12 +13,12 @@ use Orchid\Support\Facades\Layout;
 
 class TrainingScreen extends Screen
 {
-    public $name = 'Набор тренировок';
+    public $name = 'Тренировоки пользователей';
 
     public function query(): iterable
     {
         return [
-            'trainings' => Training::all()
+            'trainings' => Training::paginate(20)
         ];
     }
 
@@ -33,10 +33,11 @@ class TrainingScreen extends Screen
     {
         return [
             Layout::table('trainings', [
-                TD::make('name', 'Название'),
+                TD::make('Пользователь')->render(fn(Training $training)=>$training->user->name),
                 TD::make('', 'Тип')->render(fn(Training $training)=>$training->type->name),
-                TD::make('details_id', 'Тип_id'),
-                TD::make('details_type', 'Тип_type'),
+                TD::make('points', 'Очков'),
+                TD::make('created_at', 'Дата'),
+                TD::make('approved', 'Подтверждена'),
                 TD::make('', 'Действия')->render(fn(Training $training) => Link::make('Редактировать')
                     ->route('platform.trainings.edit', $training))
             ])

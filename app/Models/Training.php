@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Orchid\Attachment\Attachable;
 use Orchid\Screen\AsSource;
 
@@ -13,25 +15,28 @@ class Training extends Model
     use AsSource;
     use Attachable;
 
-    protected $fillable = ['user_id', 'training_type_id', 'trainable_id', 'trainable_type'];
+    protected $fillable = ['user_id', 'training_type_id', 'trainable_id', 'trainable_type', 'approved'];
+//    protected $casts = ['approved' => 'boolean'];
 
-    public function type()
+    public function type(): BelongsTo
     {
         return $this->belongsTo(TrainingType::class, 'training_type_id');
     }
 
-    public function trainable()
+    public function trainable(): MorphTo
     {
         return $this->morphTo();
     }
-    public function user()
+
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function calculatePoints()
+
+    public function calculatePoints(): void
     {
         if ($this->trainable) {
-            $this->points = $this->trainable->speed * $this->trainable->distance * $this->trainable->duration;
+            $this->points = $this->trainable->calculate();
             $this->save();
         }
     }

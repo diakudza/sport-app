@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('training_type_id')->constrained('training_types')->onDelete('cascade');
             $table->morphs('trainable');
             $table->unsignedInteger('points')->default(0);
+            $table->boolean('approved')->default(false);
             $table->timestamps();
         });
     }

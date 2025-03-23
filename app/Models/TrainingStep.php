@@ -6,20 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Screen\AsSource;
 
-class TrainingYoga extends Model
+class TrainingStep extends Model
 {
     use HasFactory;
     use AsSource;
 
-    protected $fillable = ['poses_count', 'duration'];
+    protected $fillable = ['step_count'];
 
     public function training()
     {
-        return $this->morphOne(\App\Models\Training::class, 'trainable');
+        return $this->morphOne(Training::class, 'trainable');
     }
 
-    public function calculate(): int
+    public function calculate()
     {
-        return 3;
+        return $this->step_count / 10000;
     }
 }

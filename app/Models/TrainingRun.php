@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Screen\AsSource;
 
-class TrainingYoga extends Model
+class TrainingRun extends Model
 {
     use HasFactory;
     use AsSource;
 
-    protected $fillable = ['poses_count', 'duration'];
+    protected $fillable = ['distance', 'speed', 'duration', 'pulse'];
 
     public function training()
     {
@@ -20,6 +20,11 @@ class TrainingYoga extends Model
 
     public function calculate(): int
     {
-        return 3;
+        //5 балла за каждые 10 км
+        if($this->distance){
+            $points = (int)( $this->distance / 10 ) * 5 ;
+        }
+
+        return (int) $points ?? 0;
     }
 }

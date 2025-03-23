@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Screen\AsSource;
 
-class TrainingYoga extends Model
+class TrainingGroup extends Model
 {
     use HasFactory;
     use AsSource;
 
-    protected $fillable = ['poses_count', 'duration'];
+    protected $fillable = ['duration', 'pulse'];
 
     public function training()
     {

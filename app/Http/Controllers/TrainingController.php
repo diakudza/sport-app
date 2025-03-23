@@ -9,19 +9,25 @@ use App\Http\Requests\CarRequest;
 use App\Http\Resources\CarForSelectResource;
 use App\Models\Car;
 use App\Models\Training;
+use App\Repository\TrainingRepository;
+use App\Repository\TrainingTypeRepository;
+use App\Service\TrainingService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
 
-class TrainingController extends Controller
+final class TrainingController extends Controller
 {
+    public function __construct(
+        protected TrainingService $trainingService,
+        protected TrainingRepository $trainingRepository
+    )
+    {
+    }
+
     public function index()
     {
-        $trainings = Training::query()->with(['user','type','trainable'])->get();
-        $ratings = Training::select('user_id', DB::raw('SUM(points) as total_points'))
-            ->groupBy('user_id')
-            ->orderByDesc('total_points')
-            ->get();
-
+        $trainings = $this->trainingRepository->getAll(['user','type','trainable']);
+        $ratings = $this->trainingRepository->getRatingsUserGrouped();
         return view('index', compact('trainings', 'ratings'));
     }
 }

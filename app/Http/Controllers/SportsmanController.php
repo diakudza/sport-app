@@ -10,23 +10,29 @@ use App\Http\Resources\CarForSelectResource;
 use App\Models\Car;
 use App\Models\Training;
 use App\Models\TrainingType;
-use App\Models\TrainingVelo;
+use App\Models\TrainingBike;
 use App\Models\TrainingYoga;
+use App\Repository\TrainingRepository;
+use App\Repository\TrainingTypeRepository;
 use App\Service\TrainingService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
 use function PHPUnit\Framework\isInstanceOf;
 
-class SportsmanController extends Controller
+final class SportsmanController extends Controller
 {
-    public function __construct(protected TrainingService $trainingService)
+    public function __construct(
+        protected TrainingService $trainingService,
+        protected TrainingRepository $trainingRepository,
+        protected TrainingTypeRepository $trainingTypeRepository,
+    )
     {
     }
 
     public function index()
     {
-        $trainingTypes = TrainingType::all();
+        $trainingTypes = $this->trainingTypeRepository->getAll();
         return view('sportsman.add-training', compact('trainingTypes'));
     }
 
@@ -50,11 +56,7 @@ class SportsmanController extends Controller
 
     public function trainings(Request $request)
     {
-        $trainings = Training::query()
-            ->where('user_id', auth()->user()->id)
-            ->with('trainable')
-            ->get();
-
+        $trainings = $this->trainingRepository->getTrainingsByUserId(auth()->user()->id);
         return view('sportsman.your-training', ['trainings' => $trainings]);
     }
 }

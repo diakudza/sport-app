@@ -85,7 +85,7 @@ Route::screen('trainings/{training}/edit', TrainingEditScreen::class)
     ->name('platform.trainings.edit')
     ->breadcrumbs(fn (Trail $trail, $training) => $trail
         ->parent('platform.index')
-        ->push($training->name, route('platform.trainings.edit', $training)));
+        ->push($training->id, route('platform.trainings.edit', $training)));
 
 Route::screen('training-type', TrainingTypeScreen::class)
     ->name('platform.training-type')
