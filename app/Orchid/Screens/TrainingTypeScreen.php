@@ -24,7 +24,7 @@ class TrainingTypeScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-//            Link::make('Создать')->route('platform.training-type.create')
+            Link::make('Создать')->route('platform.training-type.create')
         ];
     }
 
@@ -34,8 +34,8 @@ class TrainingTypeScreen extends Screen
             Layout::table('training_types', [
                 TD::make('name', 'Название'),
                 TD::make('model_class', 'Класс модели'),
-//                TD::make('', 'Действия')->render(fn(TrainingType $type) => Link::make('Редактировать')
-//                    ->route('platform.training-type.edit', $type))
+                TD::make('', 'Действия')->render(fn(TrainingType $type) => Link::make('Редактировать')
+                    ->route('platform.training-type.edit', $type))
             ])
         ];
     }

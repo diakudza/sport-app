@@ -6,13 +6,13 @@ namespace App\Orchid\Screens;
 
 use App\Models\TrainingType;
 use Illuminate\Http\Request;
-use Orchid\Alert\Toast;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Screen;
 use Orchid\Screen\TD;
 use Orchid\Support\Facades\Layout;
+use Orchid\Support\Facades\Toast;
 
 class TrainingTypeEditScreen extends Screen
 {
@@ -47,9 +47,9 @@ class TrainingTypeEditScreen extends Screen
             'trainingType.name' => 'required|string',
             'trainingType.model_class' => 'required|string|unique:training_types,model_class'
         ]);
-
         $this->trainingType->fill($data['trainingType'])->save();
+
         Toast::info('Тип тренировки сохранен!');
-        return redirect()->route('platform.training-types');
+        return redirect()->route('platform.training-type');
     }
 }

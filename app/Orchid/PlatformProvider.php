@@ -43,10 +43,12 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('bs.collection')
                 ->route('platform.example')
                 ->badge(fn () => 6),
-            Menu::make('Training')
+            Menu::make('Trainings')
                 ->icon('bs.collection')
-                ->route('platform.training-type')
-                ->badge(fn () => 6),
+                ->route('platform.trainings'),
+            Menu::make('Training types')
+                ->icon('bs.collection')
+                ->route('platform.training-type'),
 
             Menu::make('Form Elements')
                 ->icon('bs.card-list')

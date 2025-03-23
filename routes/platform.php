@@ -14,6 +14,10 @@ use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
 use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
+use App\Orchid\Screens\TrainingEditScreen;
+use App\Orchid\Screens\TrainingScreen;
+use App\Orchid\Screens\TrainingTypeEditScreen;
+use App\Orchid\Screens\TrainingTypeScreen;
 use App\Orchid\Screens\User\UserEditScreen;
 use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
@@ -63,23 +67,49 @@ Route::screen('users', UserListScreen::class)
         ->parent('platform.index')
         ->push(__('Users'), route('platform.systems.users')));
 
+
+
+Route::screen('trainings', TrainingScreen::class)
+    ->name('platform.trainings')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push(__('Training'), route('platform.systems.users')));
+
+Route::screen('trainings/create', TrainingEditScreen::class)
+    ->name('platform.trainings.create')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push('Создание', route('platform.trainings.create')));
+
+Route::screen('trainings/{training}/edit', TrainingEditScreen::class)
+    ->name('platform.trainings.edit')
+    ->breadcrumbs(fn (Trail $trail, $training) => $trail
+        ->parent('platform.index')
+        ->push($training->name, route('platform.trainings.edit', $training)));
+
+Route::screen('training-type', TrainingTypeScreen::class)
+    ->name('platform.training-type')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push(__('Training'), route('platform.training-type')));
+Route::screen('training-type/create', TrainingTypeEditScreen::class)
+    ->name('platform.training-type.create')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push('Создание', route('platform.training-type.create')));
+
+Route::screen('training-type/{trainingType}/edit', TrainingTypeEditScreen::class)
+    ->name('platform.training-type.edit')
+    ->breadcrumbs(fn (Trail $trail, $trainingType) => $trail
+        ->parent('platform.index')
+        ->push($trainingType->name, route('platform.training-type.edit', $trainingType)));
+
 // Platform > System > Roles > Role
 Route::screen('roles/{role}/edit', RoleEditScreen::class)
     ->name('platform.systems.roles.edit')
     ->breadcrumbs(fn (Trail $trail, $role) => $trail
         ->parent('platform.systems.roles')
         ->push($role->name, route('platform.systems.roles.edit', $role)));
-Route::screen('training-type', \App\Orchid\Screens\TrainingTypeScreen::class)
-    ->name('platform.training-type')
-    ->breadcrumbs(fn (Trail $trail) => $trail
-        ->parent('platform.index')
-        ->push(__('Users'), route('platform.systems.users')));
-Route::screen('training-type/{trainingType}/edit', \App\Orchid\Screens\TrainingTypeEditScreen::class)
-    ->name('platform.systems.roles.edit')
-    ->breadcrumbs(fn (Trail $trail, $role) => $trail
-        ->parent('platform.systems.roles')
-        ->push($role->name, route('platform.systems.roles.edit', $role)));
-
 // Platform > System > Roles > Create
 Route::screen('roles/create', RoleEditScreen::class)
     ->name('platform.systems.roles.create')

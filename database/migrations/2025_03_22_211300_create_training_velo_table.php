@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('trainings', function (Blueprint $table) {
+        Schema::create('training_velos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('training_type_id')->constrained('training_types')->onDelete('cascade');
-            $table->morphs('trainable');
-            $table->unsignedInteger('points')->default(0);
+            $table->decimal('distance', 8, 2);
+            $table->decimal('speed', 5, 2);
+            $table->integer('duration');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('trainings');
+        Schema::dropIfExists('training_velos');
     }
 };
