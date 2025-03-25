@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Orchid\Screens;
+namespace App\Orchid\Screens\Training;
 
 use App\Models\TrainingType;
 use Orchid\Screen\Actions\Link;

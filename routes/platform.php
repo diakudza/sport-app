@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Orchid\Screens\Event\EventEditScreen;
+use App\Orchid\Screens\Event\EventScreen;
 use App\Orchid\Screens\Examples\ExampleActionsScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
 use App\Orchid\Screens\Examples\ExampleChartsScreen;
@@ -14,10 +16,10 @@ use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
 use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
-use App\Orchid\Screens\TrainingEditScreen;
-use App\Orchid\Screens\TrainingScreen;
-use App\Orchid\Screens\TrainingTypeEditScreen;
-use App\Orchid\Screens\TrainingTypeScreen;
+use App\Orchid\Screens\Training\TrainingEditScreen;
+use App\Orchid\Screens\Training\TrainingScreen;
+use App\Orchid\Screens\Training\TrainingTypeEditScreen;
+use App\Orchid\Screens\Training\TrainingTypeScreen;
 use App\Orchid\Screens\User\UserEditScreen;
 use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
@@ -67,13 +69,30 @@ Route::screen('users', UserListScreen::class)
         ->parent('platform.index')
         ->push(__('Users'), route('platform.systems.users')));
 
+Route::screen('events', EventScreen::class)
+    ->name('platform.events')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push(__('Event'), route('platform.events')));
+
+Route::screen('events/create', EventEditScreen::class)
+    ->name('platform.events.create')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push('Создание', route('platform.events.create')));
+
+Route::screen('events/{event}/edit', EventEditScreen::class)
+    ->name('platform.events.edit')
+    ->breadcrumbs(fn (Trail $trail, $event) => $trail
+        ->parent('platform.index')
+        ->push($event->id, route('platform.events.edit', $event)));
 
 
 Route::screen('trainings', TrainingScreen::class)
     ->name('platform.trainings')
     ->breadcrumbs(fn (Trail $trail) => $trail
         ->parent('platform.index')
-        ->push(__('Training'), route('platform.systems.users')));
+        ->push(__('Training'), route('platform.trainings')));
 
 Route::screen('trainings/create', TrainingEditScreen::class)
     ->name('platform.trainings.create')

@@ -36,4 +36,9 @@ class TrainingRepository
             ->get();
     }
 
+    public function findById(int $id): Training | null
+    {
+        return $this->model::query()->with('attachment')->findOrFail($id);
+    }
+
 }

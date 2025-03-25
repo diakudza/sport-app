@@ -30,4 +30,11 @@ final class TrainingController extends Controller
         $ratings = $this->trainingRepository->getRatingsUserGrouped();
         return view('index', compact('trainings', 'ratings'));
     }
+
+    public function detail(int $id)
+    {
+        $training = $this->trainingRepository->findById($id);
+
+        return view('trainings.training-detail', compact('training',));
+    }
 }

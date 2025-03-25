@@ -2,15 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Orchid\Screens;
+namespace App\Orchid\Screens\Training;
 
 use App\Models\TrainingType;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
-use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Screen;
-use Orchid\Screen\TD;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 

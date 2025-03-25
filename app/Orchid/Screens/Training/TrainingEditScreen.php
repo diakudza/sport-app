@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Orchid\Screens;
+namespace App\Orchid\Screens\Training;
 
-use Orchid\Screen\Actions\Link;
-use Orchid\Support\Facades\Toast;
 use App\Models\{Training};
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
+use Orchid\Support\Facades\Toast;
 
 class TrainingEditScreen extends Screen
 {
