@@ -1,6 +1,7 @@
 @extends('template.main')
 
 @section('content')
+
     <div class="bg-gray-100 flex items-center justify-center h-screen">
         <div class="bg-white p-6 rounded-lg shadow-lg w-96">
             <h2 class="text-xl font-bold mb-4">Вход в систему</h2>

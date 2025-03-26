@@ -9,31 +9,30 @@ use App\Http\Requests\CarRequest;
 use App\Http\Resources\CarForSelectResource;
 use App\Models\Car;
 use App\Models\Training;
+use App\Repository\EventRepository;
 use App\Repository\TrainingRepository;
 use App\Repository\TrainingTypeRepository;
 use App\Service\TrainingService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
 
-final class TrainingController extends Controller
+final class IndexController extends Controller
 {
     public function __construct(
         protected TrainingService $trainingService,
-        protected TrainingRepository $trainingRepository
+        protected TrainingRepository $trainingRepository,
+        protected EventRepository $eventRepository,
     )
     {
     }
 
     public function index()
     {
-        $trainings = $this->trainingRepository->getAll(['user','type','trainable']);
+        $eventTrainings = $this->trainingRepository->getGroupedByEvents(['user','type','trainable','event']);
         $ratings = $this->trainingRepository->getRatingsUserGrouped();
-        return view('index', compact('trainings', 'ratings'));
+        $events = $this->eventRepository->getAll();
+
+        return view('index', compact('eventTrainings', 'ratings', 'events'));
     }
 
-    public function detail(int $id)
-    {
-        $training = $this->trainingRepository->findById($id);
-        return view('trainings.training-detail', compact('training',));
-    }
 }

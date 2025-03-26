@@ -12,7 +12,6 @@ class TrainingService
 {
     public function saveTraining(array $data)
     {
-
         $type = TrainingType::find($data['type']);
 
         if (!class_exists($type->model_class)) {
@@ -25,10 +24,10 @@ class TrainingService
         $training = new Training();
         $training->training_type_id = $type->id;
         $training->user_id = $data['user_id'];
+        $training->event_id = $data['event_id'];
         $training->trainable()->associate($model);
         $training->save();
         $training->calculatePoints();
-
         if (isset($data['attachment'])) {
             foreach ($data['attachment'] as $file) {
 

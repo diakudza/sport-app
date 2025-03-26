@@ -15,8 +15,7 @@ class Training extends Model
     use AsSource;
     use Attachable;
 
-    protected $fillable = ['user_id', 'training_type_id', 'trainable_id', 'trainable_type', 'approved'];
-//    protected $casts = ['approved' => 'boolean'];
+    protected $fillable = ['user_id', 'training_type_id', 'trainable_id', 'trainable_type', 'approved', 'event_id'];
 
     public function type(): BelongsTo
     {
@@ -31,6 +30,11 @@ class Training extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function event(): BelongsTo
+    {
+        return $this->belongsTo(Event::class, 'event_id');
     }
 
     public function calculatePoints(): void

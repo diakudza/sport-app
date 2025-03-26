@@ -5,7 +5,6 @@ namespace App\Repository;
 
 use App\Models\Event;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 
 class EventRepository
 {
@@ -14,7 +13,16 @@ class EventRepository
     public function getAll(?array $with = null): Collection
     {
         return $this->model::query()
-//            ->where('approved', true)
+            ->when($with, fn($q) => $q->with($with))
+            ->orderBy('date_start')
+            ->get();
+    }
+
+    public function getForUser(int $userId, ?array $with = null): Collection
+    {
+        return $this->model::query()
+            ->whereRelation('users', 'user_id', $userId)
+            ->where('active', true)
             ->when($with, fn($q) => $q->with($with))
             ->get();
     }

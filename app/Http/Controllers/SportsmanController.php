@@ -12,6 +12,7 @@ use App\Models\Training;
 use App\Models\TrainingType;
 use App\Models\TrainingBike;
 use App\Models\TrainingYoga;
+use App\Repository\EventRepository;
 use App\Repository\TrainingRepository;
 use App\Repository\TrainingTypeRepository;
 use App\Service\TrainingService;
@@ -26,14 +27,16 @@ final class SportsmanController extends Controller
         protected TrainingService $trainingService,
         protected TrainingRepository $trainingRepository,
         protected TrainingTypeRepository $trainingTypeRepository,
+        protected EventRepository $eventRepository,
     )
     {
     }
 
     public function index()
     {
+        $events = $this->eventRepository->getForUser(auth()->id());
         $trainingTypes = $this->trainingTypeRepository->getAll();
-        return view('sportsman.add-training', compact('trainingTypes'));
+        return view('sportsman.add-training', compact('trainingTypes', 'events' ));
     }
 
     /**
@@ -46,7 +49,8 @@ final class SportsmanController extends Controller
             'training' => 'required|array',
             'user_id' => 'required|exists:users,id',
             'attachment' => 'array',
-            'attachment.*' => 'file'
+            'attachment.*' => 'file',
+            'event_id' => 'required|exists:events,id',
         ]);
 
         $this->trainingService->saveTraining($data);

@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SportsmanController;
 use App\Http\Controllers\TrainingController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [TrainingController::class, 'index'])->name('home');
+Route::get('/', [IndexController::class, 'index'])->name('home');
 
 Route::get('/login', [AuthController::class, 'index'])->name('login.page');
 Route::post('/login', [AuthController::class, 'auth'])->name('login.action');

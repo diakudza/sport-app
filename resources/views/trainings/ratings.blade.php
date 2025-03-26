@@ -1,4 +1,3 @@
-<h3 class="text-2xl font-bold mb-4">Рейтиг</h3>
 <table class="w-auto bg-white shadow-lg rounded-lg overflow-hidden">
     <thead class="bg-blue-600 text-white">
     <th class="p-2">Имя</th>

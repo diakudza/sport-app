@@ -8,6 +8,12 @@
                 @csrf
                 <input type="hidden" name="user_id" class="w-full p-2 border rounded mb-3"
                        value="{{auth()->user()?->id}}">
+                <select name="event_id" class="w-full p-2 border rounded mb-3">
+                    <option>Выберите доступное вам соревнования</option>
+                    @foreach($events as $event)
+                        <option value="{{$event->id}}">{{$event->name}}</option>
+                    @endforeach
+                </select>
                 <select name="type" id="type-selector" class="w-full p-2 border rounded mb-3">
                     <option>Выберите тип тренировки</option>
                     @foreach($trainingTypes as $type)
