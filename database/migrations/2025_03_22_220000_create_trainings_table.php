@@ -18,6 +18,7 @@ return new class extends Migration
             $table->morphs('trainable');
             $table->unsignedInteger('points')->default(0);
             $table->boolean('approved')->default(false);
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

@@ -10,13 +10,13 @@ return new class extends Migration {
      * Run the migrations.
      */
     public array $typeClass = [
-        ['name' => 'Вело тренировка', 'model_class' => 'App\Models\TrainingBike'],
-        ['name' => 'Йога', 'model_class' => 'App\Models\TrainingYoga'],
-        ['name' => 'Бег', 'model_class' => 'App\Models\TrainingRun'],
-        ['name' => 'Силовая', 'model_class' => 'App\Models\TrainingStrong'],
-        ['name' => 'Групповая в зале', 'model_class' => 'App\Models\TrainingGroup'],
-        ['name' => 'Единоборства', 'model_class' => 'App\Models\TrainingCombat'],
-        ['name' => 'Шаги', 'model_class' => 'App\Models\TrainingStep'],
+        ['name' => 'Вело тренировка', 'model_class' => 'App\Models\TrainingBike', 'slug'=>'bike'],
+        ['name' => 'Йога', 'model_class' => 'App\Models\TrainingYoga','slug'=>'yoga'],
+        ['name' => 'Бег', 'model_class' => 'App\Models\TrainingRun','slug'=>'run'],
+        ['name' => 'Силовая', 'model_class' => 'App\Models\TrainingStrong','slug'=>'strong'],
+        ['name' => 'Групповая в зале', 'model_class' => 'App\Models\TrainingGroup','slug'=>'group'],
+        ['name' => 'Единоборства', 'model_class' => 'App\Models\TrainingCombat','slug'=>'combat'],
+        ['name' => 'Шаги', 'model_class' => 'App\Models\TrainingStep','slug'=>'step'],
     ];
 
     public function up(): void
@@ -24,6 +24,7 @@ return new class extends Migration {
         Schema::create('training_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug')->unique();
             $table->string('model_class');
             $table->timestamps();
             $table->unique('name', 'model_class');

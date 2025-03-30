@@ -1,5 +1,7 @@
 @extends('template.main')
 
+@section('title', 'Список событий')
+
 @section('content')
     <div class="mx-auto d-flex flex-column">
 
@@ -16,17 +18,16 @@
             </thead>
             <tbody>
             @foreach($events as $event)
-                <tr class="border-b">
-                    <td class="p-2 ">@if($event->attachments->count())
-                            <a href="{{route('event.detail',$event->id)}}">
-                                <img width="100" src="{{$event->attachments?->first()?->url()}}"/>
-                            </a>
-                    @endif
+                <tr class="border-b cursor-pointer"
+                    onclick="window.location.href = '{{ route('event.detail', $event->id) }}'">
+                    <td class="p-2 ">
+                        <img width="100" src="{{$event->attachments?->first()?->url()}}"/>
+                    </td>
                     <td class="p-2">{{$event->name}}</td>
                     <td class="p-2 ">{{$event->short_description}}</td>
                     <td class="p-2 ">{{$event->date_start}} - {{$event->date_end}}</td>
 
-                    </td>
+
                 </tr>
             @endforeach
             </tbody>

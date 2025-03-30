@@ -36,7 +36,8 @@ class TrainingScreen extends Screen
                 TD::make('', 'Тип')->render(fn(Training $training)=>$training->type->name),
                 TD::make('points', 'Очков'),
                 TD::make('created_at', 'Дата'),
-                TD::make('approved', 'Подтверждена'),
+                TD::make('', 'Подтверждена')->render(fn(Training $training) => $training->approved ?
+                    "<i class='text-success'>&#128076;</i>" :"<i class='text-success'>&#128681;</i>"),
                 TD::make('', 'Действия')->render(fn(Training $training) => Link::make('Редактировать')
                     ->route('platform.trainings.edit', $training))
             ])

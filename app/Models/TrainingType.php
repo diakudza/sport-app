@@ -13,7 +13,7 @@ class TrainingType extends Model
     use HasFactory;
     use AsMultiSource;
 
-    protected $fillable = ['name', 'model_class'];
+    protected $fillable = ['name', 'slug', 'model_class'];
 
     public function trainings(): HasMany
     {

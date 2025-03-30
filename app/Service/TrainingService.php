@@ -12,8 +12,9 @@ class TrainingService
 {
     public function saveTraining(array $data)
     {
-        $type = TrainingType::find($data['type']);
 
+        $type = TrainingType::query()->where('slug',$data['type'])->first();
+//        dd($type);
         if (!class_exists($type->model_class)) {
             throw new \Exception("Класс {$type->model_class} не найден.");
         }

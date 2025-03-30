@@ -1,5 +1,7 @@
 @extends('template.main')
 
+@section('title', 'Вход')
+
 @section('content')
 
     <div class="bg-gray-100 flex items-center justify-center h-screen">

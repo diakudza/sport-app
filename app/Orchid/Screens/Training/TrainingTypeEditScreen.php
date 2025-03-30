@@ -33,8 +33,9 @@ class TrainingTypeEditScreen extends Screen
     {
         return [
             Layout::rows([
-                Input::make('trainingType.name')->title('Название'),
-                Input::make('trainingType.model_class')->title('Класс модели')
+                Input::make('trainingType.name')->title('Название')->required(),
+                Input::make('trainingType.slug')->title('Слаг')->required(),
+                Input::make('trainingType.model_class')->title('Класс модели')->required()
             ])
         ];
     }
@@ -43,6 +44,7 @@ class TrainingTypeEditScreen extends Screen
     {
         $data = $request->validate([
             'trainingType.name' => 'required|string',
+            'trainingType.slug' => 'required|string|unique:training_type,slug',
             'trainingType.model_class' => 'required|string|unique:training_types,model_class'
         ]);
         $this->trainingType->fill($data['trainingType'])->save();

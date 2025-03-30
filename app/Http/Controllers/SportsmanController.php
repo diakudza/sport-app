@@ -24,10 +24,10 @@ use function PHPUnit\Framework\isInstanceOf;
 final class SportsmanController extends Controller
 {
     public function __construct(
-        protected TrainingService $trainingService,
-        protected TrainingRepository $trainingRepository,
+        protected TrainingService        $trainingService,
+        protected TrainingRepository     $trainingRepository,
         protected TrainingTypeRepository $trainingTypeRepository,
-        protected EventRepository $eventRepository,
+        protected EventRepository        $eventRepository,
     )
     {
     }
@@ -36,7 +36,7 @@ final class SportsmanController extends Controller
     {
         $events = $this->eventRepository->getForUser(auth()->id());
 //        $trainingTypes = $this->trainingTypeRepository->getAll();
-        return view('sportsman.add-training', compact('events' ));
+        return view('sportsman.add-training', compact('events'));
     }
 
     /**
@@ -44,8 +44,9 @@ final class SportsmanController extends Controller
      */
     public function add(Request $request)
     {
+
         $data = $request->validate([
-            'type' => 'required',
+            'type' => 'required|exists:training_types,slug',
             'training' => 'required|array',
             'user_id' => 'required|exists:users,id',
             'attachment' => 'array',
@@ -54,8 +55,7 @@ final class SportsmanController extends Controller
         ]);
 
         $this->trainingService->saveTraining($data);
-
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'Тренировка добавлена');
     }
 
     public function trainings(Request $request)

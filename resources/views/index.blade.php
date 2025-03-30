@@ -1,5 +1,7 @@
 @extends('template.main')
 
+@section('title', 'Главная')
+
 @section('content')
     <div class="flex justify-between">
         <div class="flex flex-col">

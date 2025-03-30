@@ -1,5 +1,7 @@
 @extends('template.main')
 
+@section('title', 'Добавление тренировки')
+
 @section('content')
     <div class="bg-gray-100 flex items-center justify-center h-screen">
         <div class="bg-white p-6 rounded-lg shadow-lg w-96">
@@ -61,19 +63,19 @@
 
             // Включаем соответствующий шаблон
             //Тут нужно потом поменять цифры на что-то связанное
-            if (selectedTemplate === '1') {
+            if (selectedTemplate === 'bike') {
                 container.innerHTML = `@include('trainings.parts.bike')`;
-            } else if (selectedTemplate === '2') {
+            } else if (selectedTemplate === 'yoga') {
                 container.innerHTML = `@include('trainings.parts.yoga')`;
-            } else if (selectedTemplate === '3') {
+            } else if (selectedTemplate === 'run') {
                 container.innerHTML = `@include('trainings.parts.run')`;
-            } else if (selectedTemplate === '4') {
+            } else if (selectedTemplate === 'strong') {
                 container.innerHTML = `@include('trainings.parts.strong')`;
-            } else if (selectedTemplate === '5') {
+            } else if (selectedTemplate === 'group') {
                 container.innerHTML = `@include('trainings.parts.group')`;
-            } else if (selectedTemplate === '6') {
+            } else if (selectedTemplate === 'combat') {
                 container.innerHTML = `@include('trainings.parts.combat')`;
-            } else if (selectedTemplate === '7') {
+            } else if (selectedTemplate === 'step') {
                 container.innerHTML = `@include('trainings.parts.step')`;
             }
         });

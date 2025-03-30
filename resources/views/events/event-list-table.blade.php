@@ -7,7 +7,7 @@
     </thead>
     <tbody>
     @foreach($events as $event)
-        <tr class="border-b">
+        <tr class="border-b cursor-pointer" onclick="window.location.href = '{{ route('event.detail', $event->id) }}'">
             <td class="p-2">{{$event->name}}</td>
             <td class="p-2 ">{{$event->short_description}}</td>
             <td class="p-2 ">{{$event->date_start}} - {{$event->date_end}}</td>
