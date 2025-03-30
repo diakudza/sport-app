@@ -35,8 +35,8 @@ final class SportsmanController extends Controller
     public function index()
     {
         $events = $this->eventRepository->getForUser(auth()->id());
-        $trainingTypes = $this->trainingTypeRepository->getAll();
-        return view('sportsman.add-training', compact('trainingTypes', 'events' ));
+//        $trainingTypes = $this->trainingTypeRepository->getAll();
+        return view('sportsman.add-training', compact('events' ));
     }
 
     /**

@@ -8,7 +8,7 @@
                 @csrf
                 <input type="hidden" name="user_id" class="w-full p-2 border rounded mb-3"
                        value="{{auth()->user()?->id}}">
-                <select name="event_id" class="w-full p-2 border rounded mb-3">
+                <select name="event_id" id="event-selector" class="w-full p-2 border rounded mb-3">
                     <option>Выберите доступное вам соревнования</option>
                     @foreach($events as $event)
                         <option value="{{$event->id}}">{{$event->name}}</option>
@@ -16,9 +16,6 @@
                 </select>
                 <select name="type" id="type-selector" class="w-full p-2 border rounded mb-3">
                     <option>Выберите тип тренировки</option>
-                    @foreach($trainingTypes as $type)
-                        <option value="{{$type->id}}">{{$type->name}}</option>
-                    @endforeach
                 </select>
 
                 <div id="type-container"></div>
@@ -29,6 +26,33 @@
         </div>
     </div>
     <script>
+        document.getElementById('event-selector').addEventListener('change', function () {
+            const typeSelect = document.getElementById('type-selector');
+            const competitionId = this.value;
+            const container = document.getElementById('type-container');
+            if (competitionId) {
+                fetch(`{{ route('trainingTypes.event') }}?event_id=${competitionId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        typeSelect.innerHTML = ''; // Очищаем второй селект
+                        typeSelect.disabled = false;
+                        container.innerHTML = '';
+                        for (const key in data) {
+                            const option = document.createElement('option');
+                            option.value = key;
+                            option.text = data[key];
+                            typeSelect.appendChild(option);
+                        }
+                    })
+                    .catch(error => {
+                        alert('Ошибка при загрузке активностей.');
+                        typeSelect.disabled = true;
+                    });
+            } else {
+                typeSelect.innerHTML = '<option value="">Выберите активность</option>';
+                typeSelect.disabled = true;
+            }
+        });
         document.getElementById('type-selector').addEventListener('change', function () {
             const selectedTemplate = this.value;
             const container = document.getElementById('type-container');

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Orchid\Screen\AsMultiSource;
 
@@ -17,5 +18,9 @@ class TrainingType extends Model
     public function trainings(): HasMany
     {
         return $this->hasMany(Training::class);
+    }
+    public function event(): BelongsToMany
+    {
+        return $this->belongsToMany(Event::class, 'event_training_types');
     }
 }

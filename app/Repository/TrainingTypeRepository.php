@@ -14,4 +14,10 @@ class TrainingTypeRepository
     {
         return $this->model::query()->when($with, fn($q) => $q->with($with))->get();
     }
+    public function getForEvent(int $event_id, ?array $with = null): Collection
+    {
+        return $this->model::query()->when($with, fn($q) => $q->with($with))
+            ->whereRelation('event', fn($q) => $q->where('event_id', $event_id))
+            ->get();
+    }
 }

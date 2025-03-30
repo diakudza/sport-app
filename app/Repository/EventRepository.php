@@ -35,6 +35,9 @@ class EventRepository
         $users = $data['users'] ?? [];
         unset($data['users']);
 
+        $trainingTypes = $data['training_types'] ?? [];
+        unset($data['training_types']);
+
         $model->fill($data)->save();
 
         if (!empty($attachments)) {
@@ -42,6 +45,9 @@ class EventRepository
         }
         if (!empty($users)) {
             $model->users()->sync($users);
+        }
+        if (!empty($trainingTypes)) {
+            $model->training_types()->sync($trainingTypes);
         }
 
         return $model;

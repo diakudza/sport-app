@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Orchid\Screens\Event;
 
 use App\Repository\EventRepository;
-use App\Models\{Event, User};
+use App\Models\{Event, TrainingType, User};
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\Link;
@@ -67,6 +67,8 @@ class EventEditScreen extends Screen
                 ->title('Изображение'),
             Relation::make('event.users')->title('Участники')->multiple()
                 ->fromModel(User::class, 'name'),
+            Relation::make('event.training_types')->title('Типы активностей')->multiple()
+                ->fromModel(TrainingType::class, 'name'),
             Switcher::make('event.active')->sendTrueOrFalse()->title('Активна'),
         ];
 
@@ -92,6 +94,7 @@ class EventEditScreen extends Screen
             'event.active' => 'boolean',
             'event.attachment' => 'sometimes|array',
             'event.users' => 'sometimes|array',
+            'event.training_types' => 'sometimes|array',
         ]);
 
         $this->eventRepository->saveFromPlatform($event, $data['event']);

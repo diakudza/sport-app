@@ -39,4 +39,5 @@ final class EventController extends Controller
         $event = $this->eventRepository->findById($id);
         return view('events.event-detail', compact('event'));
     }
+
 }

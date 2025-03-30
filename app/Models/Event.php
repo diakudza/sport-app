@@ -23,4 +23,8 @@ class Event extends Model
         return $this->belongsToMany(User::class, 'event_users');
     }
 
+    public function training_types(): BelongsToMany
+    {
+        return $this->belongsToMany(TrainingType::class, 'event_training_types');
+    }
 }
